@@ -1,0 +1,1 @@
+insert into persons value (1, 'Альберт', 'Акимов');
