@@ -14,9 +14,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cards")
-@Getter
-@Setter
-@ToString
 public class Card extends AbstractEntity {
 
     @Column(name = "number_card")
@@ -40,4 +37,6 @@ public class Card extends AbstractEntity {
     public void setPerson(Person person) {
         this.person = person;
     }*/
+
+
 }

@@ -1,6 +1,8 @@
 package net.albert_akimov.rest.api.service.abstract_interfaces;
 
 import net.albert_akimov.rest.api.model.AbstractEntity;
+import net.albert_akimov.rest.api.model.Role;
+import net.albert_akimov.rest.api.model.User;
 
 import java.util.List;
 
@@ -15,6 +17,4 @@ public interface AbstractService<E extends AbstractEntity> {
     void save(E entity);
     void delete(Long id);
     List<E> getAll();
-    E findByName(String name);
-
 }

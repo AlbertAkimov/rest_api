@@ -5,6 +5,7 @@ import net.albert_akimov.rest.api.model.User;
 import net.albert_akimov.rest.api.security.jwt.JwtUser;
 import net.albert_akimov.rest.api.security.jwt.JwtUserFactory;
 import net.albert_akimov.rest.api.service.UserService;
+import net.albert_akimov.rest.api.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,16 +21,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private final UserService userService;
+    private UserService userService;
 
     @Autowired
-    public JwtUserDetailsService(UserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByName(username);
+        User user = userService.findByUsername(username);
 
         if(user == null)
             throw new UsernameNotFoundException("User with username: " + username + " not found");

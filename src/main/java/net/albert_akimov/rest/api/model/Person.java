@@ -14,9 +14,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "persons")
-@Getter
-@Setter
-@ToString
 public class Person extends AbstractEntity {
 
     @Column(name = "first_name")

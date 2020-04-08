@@ -2,6 +2,8 @@ package net.albert_akimov.rest.api.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.albert_akimov.rest.api.model.AbstractEntity;
+import net.albert_akimov.rest.api.model.Role;
+import net.albert_akimov.rest.api.model.User;
 import net.albert_akimov.rest.api.repository.AbstractRepository;
 import net.albert_akimov.rest.api.service.abstract_interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +46,4 @@ public abstract class AbstractServiceImpl<E extends AbstractEntity, R extends Ab
         return repository.findAll();
     }
 
-    @Override
-    public E findByName(String name) {
-        return repository.findByName(name);
-    }
 }

@@ -1,6 +1,8 @@
 package net.albert_akimov.rest.api.rest.impl;
 
 import net.albert_akimov.rest.api.model.AbstractEntity;
+import net.albert_akimov.rest.api.model.Role;
+import net.albert_akimov.rest.api.model.User;
 import net.albert_akimov.rest.api.rest.abstract_interfaces.AbstractController;
 import net.albert_akimov.rest.api.service.abstract_interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import java.util.List;
 public abstract class AbstractControllerImpl<E extends AbstractEntity, S extends AbstractService<E>>
         implements AbstractController<E> {
 
-    private final S service;
+    protected final S service;
 
     @Autowired
     protected AbstractControllerImpl(S service) {
@@ -94,4 +96,5 @@ public abstract class AbstractControllerImpl<E extends AbstractEntity, S extends
 
         return new ResponseEntity<List<E>>(entities, HttpStatus.OK);
     }
+
 }

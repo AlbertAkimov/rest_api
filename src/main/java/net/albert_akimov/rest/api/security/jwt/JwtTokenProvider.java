@@ -2,7 +2,6 @@ package net.albert_akimov.rest.api.security.jwt;
 
 import io.jsonwebtoken.*;
 import net.albert_akimov.rest.api.model.Role;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -34,8 +34,12 @@ public class JwtTokenProvider {
     @Value("${jwt.token.expired}")
     private long validityInMillisecond;
 
-    @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

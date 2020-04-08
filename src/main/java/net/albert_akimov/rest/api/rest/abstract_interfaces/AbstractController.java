@@ -1,6 +1,8 @@
 package net.albert_akimov.rest.api.rest.abstract_interfaces;
 
 import net.albert_akimov.rest.api.model.AbstractEntity;
+import net.albert_akimov.rest.api.model.Role;
+import net.albert_akimov.rest.api.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,18 +16,14 @@ import java.util.List;
  */
 public interface AbstractController<E extends AbstractEntity> {
 
-    @GetMapping
-    ResponseEntity<E> getById(@PathVariable("id") Long id);
+    ResponseEntity<E> getById(Long id);
 
-    @PostMapping
-    ResponseEntity<E> save(@RequestBody @Valid E entity);
+    ResponseEntity<E> save(E entity);
 
-    @PutMapping
-    ResponseEntity<E> update(@RequestBody @Valid E entity);
+    ResponseEntity<E> update(E entity);
 
-    @DeleteMapping
-    ResponseEntity<E> delete(@PathVariable("id") Long id);
+    ResponseEntity<E> delete(Long id);
 
-    @GetMapping
     ResponseEntity<List<E>> getAll();
+
 }

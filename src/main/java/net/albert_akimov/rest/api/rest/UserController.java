@@ -1,13 +1,24 @@
 package net.albert_akimov.rest.api.rest;
 
+import net.albert_akimov.rest.api.dto.AuthenticationRequestDTO;
 import net.albert_akimov.rest.api.model.User;
 import net.albert_akimov.rest.api.rest.impl.AbstractControllerImpl;
-import net.albert_akimov.rest.api.service.UserService;
+import net.albert_akimov.rest.api.security.jwt.JwtTokenProvider;
+import net.albert_akimov.rest.api.service.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Authot: Albert Akimov
@@ -16,35 +27,44 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/rest/api/v1/users")
-public class UserController extends AbstractControllerImpl<User, UserService> {
+@RequestMapping(value = "/api/v1/auth/")
+public class UserController extends AbstractControllerImpl<User, UserServiceImpl> {
 
-    protected UserController(UserService service) {
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    protected UserController(UserServiceImpl service, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         super(service);
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @Override
-    public ResponseEntity<User> getById(Long id) {
-        return super.getById(id);
+    @PostMapping("login")
+    public ResponseEntity login(@RequestBody AuthenticationRequestDTO requestDTO) {
+
+        try {
+
+            String username = requestDTO.getUsername();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDTO.getPassword()));
+
+            User user = service.findByUsername(username);
+
+            if(user == null)
+                throw new UsernameNotFoundException("User with username: " + username + "not found");
+
+            String token = jwtTokenProvider.createToken(username, user.getRoles());
+
+            Map<Object, Object> response = new HashMap<>();
+            response.put("username", username);
+            response.put("token", token);
+
+            return ResponseEntity.ok(response);
+
+        }catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
     }
 
-    @Override
-    public ResponseEntity<User> save(User entity) {
-        return super.save(entity);
-    }
-
-    @Override
-    public ResponseEntity<User> update(User entity) {
-        return super.update(entity);
-    }
-
-    @Override
-    public ResponseEntity<User> delete(Long id) {
-        return super.delete(id);
-    }
-
-    @Override
-    public ResponseEntity<List<User>> getAll() {
-        return super.getAll();
-    }
 }

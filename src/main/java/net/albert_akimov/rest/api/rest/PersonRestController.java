@@ -31,7 +31,6 @@ public class PersonRestController extends AbstractControllerImpl<Person, PersonS
     }
 
     @Override
-
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Person> save(@RequestBody @Valid Person entity) {
         return super.save(entity);
