@@ -1,9 +1,5 @@
 package net.albert_akimov.rest.api.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 
 /**
@@ -13,8 +9,8 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "persons")
-public class Person extends AbstractEntity {
+@Table(name = "customers")
+public class Customer extends AbstractEntity {
 
     @Column(name = "first_name")
     private String firstName;

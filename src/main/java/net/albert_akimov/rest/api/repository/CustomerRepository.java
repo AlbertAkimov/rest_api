@@ -1,6 +1,6 @@
 package net.albert_akimov.rest.api.repository;
 
-import net.albert_akimov.rest.api.model.Person;
+import net.albert_akimov.rest.api.model.Customer;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface PersonRepository extends AbstractRepository<Person> {
+public interface CustomerRepository extends AbstractRepository<Customer> {
 
 }

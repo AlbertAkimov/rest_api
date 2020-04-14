@@ -1,4 +1,4 @@
-create table if not exists persons(
+create table if not exists customers(
     id bigint auto_increment primary key,
     id_card bigint,
     uuid_id varchar(36),
@@ -13,7 +13,7 @@ create table if not exists cards(
     uuid_id varchar(36),
     number_card varchar(100)
 );
-
+#///////////////////////////////////////////////////////////////////////////
 create table if not exists roles(
     id bigint auto_increment primary key not null,
     uuid_id varchar(36),

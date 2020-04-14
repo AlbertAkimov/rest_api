@@ -1,7 +1,7 @@
 package net.albert_akimov.rest.api.service;
 
-import net.albert_akimov.rest.api.model.Person;
-import net.albert_akimov.rest.api.repository.PersonRepository;
+import net.albert_akimov.rest.api.model.Customer;
+import net.albert_akimov.rest.api.repository.CustomerRepository;
 import net.albert_akimov.rest.api.service.impl.AbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class PersonService extends AbstractServiceImpl<Person, PersonRepository> {
+public class CustomerService extends AbstractServiceImpl<Customer, CustomerRepository> {
 
-    public PersonService(PersonRepository repository) {
+    public CustomerService(CustomerRepository repository) {
         super(repository);
     }
 }

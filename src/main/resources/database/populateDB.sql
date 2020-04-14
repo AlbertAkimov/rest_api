@@ -1,1 +1,1 @@
-insert into persons value (2, 1, '', 'Альберт', 'Акимов', true);
+insert into customers value (2, 1, '', 'Альберт', 'Акимов', true);

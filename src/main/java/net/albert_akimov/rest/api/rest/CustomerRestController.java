@@ -1,8 +1,8 @@
 package net.albert_akimov.rest.api.rest;
 
-import net.albert_akimov.rest.api.model.Person;
+import net.albert_akimov.rest.api.model.Customer;
 import net.albert_akimov.rest.api.rest.impl.AbstractControllerImpl;
-import net.albert_akimov.rest.api.service.PersonService;
+import net.albert_akimov.rest.api.service.CustomerService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,39 +18,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/login/person")
-public class PersonRestController extends AbstractControllerImpl<Person, PersonService> {
+public class CustomerRestController extends AbstractControllerImpl<Customer, CustomerService> {
 
-    protected PersonRestController(PersonService service) {
+    protected CustomerRestController(CustomerService service) {
         super(service);
     }
 
     @Override
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Person> getById(@PathVariable Long id) {
+    public ResponseEntity<Customer> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Person> save(@RequestBody @Valid Person entity) {
+    public ResponseEntity<Customer> save(@RequestBody @Valid Customer entity) {
         return super.save(entity);
     }
 
     @Override
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Person> update(@RequestBody @Valid Person entity) {
+    public ResponseEntity<Customer> update(@RequestBody @Valid Customer entity) {
         return super.update(entity);
     }
 
     @Override
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Person> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Customer> delete(@PathVariable("id") Long id) {
         return super.delete(id);
     }
 
     @Override
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Person>> getAll() {
+    public ResponseEntity<List<Customer>> getAll() {
         return super.getAll();
     }
 }
