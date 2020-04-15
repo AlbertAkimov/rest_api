@@ -1,6 +1,7 @@
 import net.albert_akimov.rest.api.ApplicationRest;
 import net.albert_akimov.rest.api.model.Card;
 import net.albert_akimov.rest.api.model.Customer;
+import net.albert_akimov.rest.api.model.Status;
 import net.albert_akimov.rest.api.service.abstract_interfaces.AbstractService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Authot: Albert Akimov
@@ -25,22 +26,39 @@ import java.util.UUID;
 public class TestCustomerAPI {
 
     @Autowired
-    private AbstractService personService;
+    private AbstractService<Customer> personService;
+    private List<Card> cards = new ArrayList<>();
 
     @Test
     public void addPerson() {
         Customer customer = new Customer();
         customer.setFirstName("Albert");
         customer.setLastName("Akimov");
-        customer.setActive(true);
-        customer.setUuid_id(UUID.randomUUID().toString());
 
         Card card = new Card();
-        card.setUuid_id(UUID.randomUUID().toString());
         card.setNumberCard("AA89997741555_[E-Marine][885522.87]");
+        card.setStatus(Status.ACTIVE);
+        card.setCustomer(customer);
 
-        customer.setCard(card);
+
+        cards.add(card);
+
+        Card card2 = new Card();
+        card2.setNumberCard("AA89997741555_[E-Marine][885522.87]_2");
+        card2.setStatus(Status.ACTIVE);
+        card2.setCustomer(customer);
+
+        cards.add(card2);
+
+        customer.setCards(cards);
 
         personService.save(customer);
+    }
+
+    @Test
+    public void getCustomerById() {
+
+        Customer customer = personService.getById(1L);
+
     }
 }

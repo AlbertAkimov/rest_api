@@ -1,6 +1,8 @@
 package net.albert_akimov.rest.api.model;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @Authot: Albert Akimov
@@ -18,20 +20,12 @@ public class Customer extends AbstractEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_card")
-    private Card card;
-
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    private List<Card> cards;
 
     public String getFirstName() {
         return firstName;
@@ -49,13 +43,19 @@ public class Customer extends AbstractEntity {
         this.lastName = lastName;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
 
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
 }

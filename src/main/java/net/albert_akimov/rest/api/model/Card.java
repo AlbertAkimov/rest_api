@@ -1,10 +1,10 @@
 package net.albert_akimov.rest.api.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @Authot: Albert Akimov
@@ -16,11 +16,49 @@ import javax.persistence.*;
 @Table(name = "cards")
 public class Card extends AbstractEntity {
 
+    @CreatedDate
+    @Column(name = "created")
+    private Date created;
+
+    @LastModifiedDate
+    @Column(name = "updated")
+    private Date updated;
+
     @Column(name = "number_card")
     private String numberCard;
 
-/*    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
-    private Person person;*/
+    @Column(name = "type_card")
+    private TypeCard typeCard;
+
+    @Column(name = "discount_percent")
+    public int discountPercent;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
+    @Column(name = "accumulation")
+    private long accumulation;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_customer")
+    private Customer customer;
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
 
     public String getNumberCard() {
         return numberCard;
@@ -30,13 +68,43 @@ public class Card extends AbstractEntity {
         this.numberCard = numberCard;
     }
 
-/*    public Person getPerson() {
-        return person;
+    public TypeCard getTypeCard() {
+        return typeCard;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }*/
+    public void setTypeCard(TypeCard typeCard) {
+        this.typeCard = typeCard;
+    }
 
+    public int getDiscountPercent() {
+        return discountPercent;
+    }
 
+    public void setDiscountPercent(int discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public long getAccumulation() {
+        return accumulation;
+    }
+
+    public void setAccumulation(long accumulation) {
+        this.accumulation = accumulation;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

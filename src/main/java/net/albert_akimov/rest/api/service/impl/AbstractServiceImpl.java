@@ -9,6 +9,7 @@ import net.albert_akimov.rest.api.service.abstract_interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Authot: Albert Akimov
@@ -33,6 +34,7 @@ public abstract class AbstractServiceImpl<E extends AbstractEntity, R extends Ab
 
     @Override
     public void save(E entity) {
+        entity.setUuid_id(UUID.randomUUID().toString());
         repository.save(entity);
     }
 

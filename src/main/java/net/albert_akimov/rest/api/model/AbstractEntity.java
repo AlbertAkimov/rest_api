@@ -2,8 +2,10 @@ package net.albert_akimov.rest.api.model;
 
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * @Authot: Albert Akimov
@@ -15,11 +17,6 @@ import javax.persistence.*;
 @Data
 @ToString
 public abstract class AbstractEntity {
-
-/*  @Column(name = "uuid_id")
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID uuid_id;*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

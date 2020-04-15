@@ -1,18 +1,36 @@
 create table if not exists customers(
     id bigint auto_increment primary key,
-    id_card bigint,
     uuid_id varchar(36),
     first_name varchar(50) not null,
     last_name varchar(100) not null,
-    is_active boolean not null,
-    foreign key (id_card) references cards (id)
+    status varchar(25) default 'ACTIVE',
+    unique (uuid_id)
 );
 
 create table if not exists cards(
     id bigint auto_increment primary key,
+    id_customer bigint,
     uuid_id varchar(36),
-    number_card varchar(100)
+    created timestamp default CURRENT_TIMESTAMP,
+    updated timestamp default CURRENT_TIMESTAMP,
+    number_card varchar(100),
+    type_card ENUM('Discount') default 'Discount',
+    discount_percentage int default 3,
+    status varchar(25) default 'ACTIVE',
+    accumulation bigint default 0,
+    unique (uuid_id),
+    foreign key (id_customer) references customers(id)
 );
+
+create table if not exists orders(
+    id bigint auto_increment primary key,
+    id_customer bigint,
+    id_card bigint,
+    id_product bigint not null,
+    
+
+)
+
 #///////////////////////////////////////////////////////////////////////////
 create table if not exists roles(
     id bigint auto_increment primary key not null,
