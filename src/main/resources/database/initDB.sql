@@ -14,7 +14,7 @@ create table if not exists cards(
     created timestamp default CURRENT_TIMESTAMP,
     updated timestamp default CURRENT_TIMESTAMP,
     number_card varchar(100),
-    type_card ENUM('Discount') default 'Discount',
+    type_card ENUM(1,2,3) default 1,
     discount_percentage int default 3,
     status varchar(25) default 'ACTIVE',
     accumulation bigint default 0,
@@ -24,12 +24,12 @@ create table if not exists cards(
 
 create table if not exists orders(
     id bigint auto_increment primary key,
+    uuid_id varchar(36),
     id_customer bigint,
     id_card bigint,
-    id_product bigint not null,
-    
+    id_product bigint not null
 
-)
+);
 
 #///////////////////////////////////////////////////////////////////////////
 create table if not exists roles(

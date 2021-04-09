@@ -22,8 +22,12 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "uuid_id")
+    @Column(name = "guid")
     private String uuid_id;
+
+    public AbstractEntity() {
+        uuid_id = UUID.randomUUID().toString();
+    }
 
     public Long getId() {
         return id;

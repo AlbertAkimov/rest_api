@@ -34,7 +34,6 @@ public abstract class AbstractServiceImpl<E extends AbstractEntity, R extends Ab
 
     @Override
     public void save(E entity) {
-        entity.setUuid_id(UUID.randomUUID().toString());
         repository.save(entity);
     }
 

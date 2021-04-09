@@ -55,10 +55,4 @@ public class TestCustomerAPI {
         personService.save(customer);
     }
 
-    @Test
-    public void getCustomerById() {
-
-        Customer customer = personService.getById(1L);
-
-    }
 }

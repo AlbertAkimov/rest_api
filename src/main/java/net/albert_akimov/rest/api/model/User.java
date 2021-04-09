@@ -1,6 +1,5 @@
 package net.albert_akimov.rest.api.model;
 
-import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 

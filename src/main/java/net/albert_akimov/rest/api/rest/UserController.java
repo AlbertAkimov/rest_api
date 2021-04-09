@@ -6,16 +6,16 @@ import net.albert_akimov.rest.api.rest.impl.AbstractControllerImpl;
 import net.albert_akimov.rest.api.security.jwt.JwtTokenProvider;
 import net.albert_akimov.rest.api.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,5 +66,32 @@ public class UserController extends AbstractControllerImpl<User, UserServiceImpl
             throw new BadCredentialsException("Invalid username or password");
         }
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity register(@RequestBody AuthenticationRequestDTO requestDTO) {
+
+        String username = requestDTO.getUsername();
+
+        User verifiable = service.findByUsername(username);
+
+        if(verifiable != null)
+            throw new UsernameNotFoundException("username: " + username + " already exist");
+
+        User user = new User();
+        user.setUsername(requestDTO.getUsername());
+        user.setPassword(requestDTO.getPassword());
+
+        User registeredUser = service.register(user);
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDTO.getPassword()));
+
+        Map<Object, Object> response = new HashMap<>();
+        response.put("username", registeredUser.getUsername());
+
+        return ResponseEntity.ok(response);
+
+    }
+
+
 
 }
